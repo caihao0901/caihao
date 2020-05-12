@@ -1,2 +1,4 @@
-#####记录个人在开发中遇到的一些问题
-#####
+##### 记录个人在开发中遇到的一些问题
+##### CaseStateServiceImpl.java -- 解决主子表查询结果ph分页错误问题
+##### ImportPortPlanServiceImpl.java -- 解决sql server参数不能超过2100的问题
+##### 对分组之后的数据进行拼接.SQL -- 一个对分组数据进行拼接的sql
