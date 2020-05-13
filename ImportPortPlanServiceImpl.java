@@ -38,6 +38,9 @@ import java.util.zip.ZipOutputStream;
  * 问题：开发过程中发现sql server的insert语句会报错，大致报错是说最多支持2100个参数
  * 解决：最开始有人提议数据量不太多的情况下，可以多次开关数据库进行处理，最后处于性能考虑，用了下面的切割字符串的方式
  * 备注：2100个参数指的是insert的参数（总数量）
+ * 05-13更新 测试数据过程中发现有数据对不上的情况
+ * sublist(0，5)截取的是0-4的数据
+ * 对方法进行了更改
  */
 @Service
 public class ImportPortPlanServiceImpl implements ImportPortPlanService {
@@ -97,12 +100,12 @@ public class ImportPortPlanServiceImpl implements ImportPortPlanService {
                     }
                     //循环分割数据
                     for (int i = 0; i < insertSqlCount; i++) {
-                        int startNumber = 0;
-                        if(i == 0){
-                            startNumber = 0;
-                        }else{
-                            startNumber = i*preInsertDataCount+1;
-                        }
+                        int startNumber = i*preInsertDataCount;
+                        //if(i == 0){
+                        //    startNumber = 0;
+                        //}else{
+                        //    startNumber = i*preInsertDataCount+1;
+                        //}
 
                         int endUnmber=(i+1)*preInsertDataCount;
                         if(endUnmber>totalDataCount){
