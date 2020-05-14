@@ -1,0 +1,33 @@
+第一次部署项目到linux服务器，记录一下发布过程和常见的命令
+
+前提：连接到linux服务器
+cmd操作
+ssh 用户名@IP地址   回车
+提示输入yes/no      yes
+
+1.指定端口操作 比如指定服务器的端口为8280
+  firewall-cmd --zone=public --add-port=8280/tcp --permanent
+  开放后重启
+
+  关闭防火墙 : systemctl stop firewalld
+  开启防火墙 : systemctl start firewalld
+  重启：systemctl restart firewalld
+  
+  备注：spring boot的配置也需要指定端口为8280 server.port=8280
+
+2.打包项目的jar包，我用的是idea，先clean，然后package
+  jar包在target目录下
+  
+3.把jar包放到服务器的需要的目录下，可以用命令，我用的是WinSCP直接上传到服务器
+
+4.发布新的服务，先要杀死之前的服务
+  ps a 查看服务 或者 ps -ef | grep java查看所有和Java有关的进程
+  kill -9 xxxxx xxxxx就是上一步进程的有关pid
+  
+5.运行jar包
+  nohup java -jar xx.jar &           xx是jar包名称，最后别忘了有个&符号
+  提示 “忽略输入并把输出追加到nohup.out”  
+  回车
+  再输入 ll
+  
+  整个发布流程结束
